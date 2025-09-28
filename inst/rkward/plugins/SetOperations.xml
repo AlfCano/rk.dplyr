@@ -1,0 +1,43 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="SetOperations.js" />
+	<help file="SetOperations.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Set Operations (dplyr)">
+		<row id="row_cSSSSFSFSS">
+			<column id="clm_vrslctrdSS">
+				<varselector id="setop_selector_x" label="Select data.frame x" />
+				<varselector id="setop_selector_y" label="Select data.frame y" />
+			</column>
+			<column id="clm_vrsltdstFS">
+				<varslot id="setop_x" label="First data.frame (x)" source="setop_selector_x" required="true" />
+				<varslot id="setop_y" label="Second data.frame (y)" source="setop_selector_y" required="true" />
+			</column>
+			<column id="clm_fSOSOOISDU">
+				<frame label="Set Options" id="frm_SetOptns">
+					<dropdown id="setop_op" label="Operation">
+						<option label="Intersect (common rows)" value="intersect" checked="true" />
+						<option label="Set Difference (rows in x, not y)" value="setdiff" />
+						<option label="Union (all unique rows)" value="union" />
+					</dropdown>
+				</frame>
+				<saveobject label="Save result as" checkable="true" checked="true" initial="data.set" id="setop_save" />
+			</column>
+		</row>
+	</dialog>
+</document>

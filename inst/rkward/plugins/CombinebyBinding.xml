@@ -1,0 +1,42 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="CombinebyBinding.js" />
+	<help file="CombinebyBinding.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Combine by Binding (dplyr)">
+		<row id="row_cSSSSFSFSB">
+			<column id="clm_vrslctrdSS">
+				<varselector id="bind_selector_x" label="Select data.frame x" />
+				<varselector id="bind_selector_y" label="Select data.frame y" />
+			</column>
+			<column id="clm_vrsltdbnFS">
+				<varslot id="bind_x" label="First data.frame (x)" source="bind_selector_x" required="true" />
+				<varslot id="bind_y" label="Second data.frame (y)" source="bind_selector_y" required="true" />
+			</column>
+			<column id="clm_frBOBOOBBS">
+				<frame label="Binding Options" id="frm_BndngOpt">
+					<dropdown id="bind_op" label="Operation">
+						<option label="Bind rows (stack)" value="bind_rows" checked="true" />
+						<option label="Bind columns (side-by-side)" value="bind_cols" />
+					</dropdown>
+				</frame>
+				<saveobject label="Save result as" checkable="true" checked="true" initial="data.bound" id="bind_save" />
+			</column>
+		</row>
+	</dialog>
+</document>

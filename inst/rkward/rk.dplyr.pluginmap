@@ -1,0 +1,138 @@
+<!DOCTYPE
+	rkpluginmap
+>
+<document
+	base_prefix=""
+	namespace="CombinebyBinding"
+	id="CombinebyBinding_rkward"
+	po_id="CombinebyBinding_rkward"
+	priority="medium"
+>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<dependencies
+		rkward_min_version="0.7.0"
+		R_min_version="3.5.0"
+	>
+	</dependencies>
+	<about
+		name="rk.dplyr"
+		shortinfo="An RKWard plugin for data table combination and manipulation using the 'dplyr' library."
+		longinfo="An RKWard plugin for data table combination and manipulation using the 'dplyr' library."
+		version="0.1.3"
+		releasedate="2025-09-28"
+		url="https://github.com/AlfCano/rk.dplyr"
+		license="GPL (&gt;= 3)"
+	>
+		<author
+			given="Alfonso"
+			family="Cano"
+			email="alfonso.cano@correo.buap.mx"
+			role="aut, cre"
+		/>
+	</about>
+	<require
+		map="rkward::menu"
+	/>
+	<require
+		map="rkward::embedded"
+	/>
+	<components>
+		<component
+			id="cmp_CombinebyBindingMuttngJns"
+			label="Mutating Joins"
+			type="standard"
+			file="plugins/MutatingJoins.xml"
+		>
+		</component>
+		<component
+			id="cmp_CombinebyBindingFltrngJns"
+			label="Filtering Joins"
+			type="standard"
+			file="plugins/FilteringJoins.xml"
+		>
+		</component>
+		<component
+			id="cmp_CombinebyBindingSetOprtns"
+			label="Set Operations"
+			type="standard"
+			file="plugins/SetOperations.xml"
+		>
+		</component>
+		<component
+			id="cmp_CombinebyBndngCmbnbyBndng"
+			label="Combine by Binding"
+			type="standard"
+			file="plugins/CombinebyBinding.xml"
+		>
+		</component>
+	</components>
+	<hierarchy>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="CombineDataTablesdplyr"
+				label="Combine Data Tables (dplyr)"
+			>
+				<entry
+					component="cmp_CombinebyBindingMuttngJns"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="CombineDataTablesdplyr"
+				label="Combine Data Tables (dplyr)"
+			>
+				<entry
+					component="cmp_CombinebyBindingFltrngJns"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="CombineDataTablesdplyr"
+				label="Combine Data Tables (dplyr)"
+			>
+				<entry
+					component="cmp_CombinebyBindingSetOprtns"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="CombineDataTablesdplyr"
+				label="Combine Data Tables (dplyr)"
+			>
+				<entry
+					component="cmp_CombinebyBndngCmbnbyBndng"
+				/>
+			</menu>
+		</menu>
+	</hierarchy>
+	<!--
+		<context
+			id="x11"
+		>
+		</context>
+	-->
+	<!--
+		<context
+			id="import"
+		>
+		</context>
+	-->
+</document>

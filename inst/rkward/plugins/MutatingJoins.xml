@@ -1,0 +1,45 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="MutatingJoins.js" />
+	<help file="MutatingJoins.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Mutating Joins (dplyr)">
+		<row id="row_cSSSSFSFSJ">
+			<column id="clm_vrslctrdSS">
+				<varselector id="mjoin_selector_x" label="Select data.frame x" />
+				<varselector id="mjoin_selector_y" label="Select data.frame y" />
+			</column>
+			<column id="clm_vrsltdmjFS">
+				<varslot id="mjoin_x" label="First data.frame (x)" source="mjoin_selector_x" required="true" />
+				<varslot id="mjoin_y" label="Second data.frame (y)" source="mjoin_selector_y" required="true" />
+			</column>
+			<column id="clm_fJOJOJTLJR">
+				<frame label="Join Options" id="frm_JonOptns">
+					<dropdown id="mjoin_op" label="Join Type">
+						<option label="Left Join" value="left_join" checked="true" />
+						<option label="Right Join" value="right_join" />
+						<option label="Inner Join" value="inner_join" />
+						<option label="Full Join" value="full_join" />
+					</dropdown>
+					<input label="Join by columns (e.g., c('A'='B'))" id="mjoin_by" />
+				</frame>
+				<saveobject label="Save result as" checkable="true" checked="true" initial="data.mutated" id="mjoin_save" />
+			</column>
+		</row>
+	</dialog>
+</document>

@@ -1,0 +1,43 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="FilteringJoins.js" />
+	<help file="FilteringJoins.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Filtering Joins (dplyr)">
+		<row id="row_cSSSSFUFUJ">
+			<column id="clm_vrslctrdSS">
+				<varselector id="fjoin_selector_x" label="Select data.frame x" />
+				<varselector id="fjoin_selector_y" label="Select data.frame y" />
+			</column>
+			<column id="clm_vrsltdfjFU">
+				<varslot id="fjoin_x" label="Filter this data.frame (x)" source="fjoin_selector_x" required="true" />
+				<varslot id="fjoin_y" label="Using matches in (y)" source="fjoin_selector_y" required="true" />
+			</column>
+			<column id="clm_fJOJOJTSJA">
+				<frame label="Join Options" id="frm_JonOptns">
+					<dropdown id="fjoin_op" label="Join Type">
+						<option label="Semi Join (keep matching x)" value="semi_join" checked="true" />
+						<option label="Anti Join (discard matching x)" value="anti_join" />
+					</dropdown>
+					<input label="Join by columns (e.g., 'ID')" id="fjoin_by" />
+				</frame>
+				<saveobject label="Save result as" checkable="true" checked="true" initial="data.filtered" id="fjoin_save" />
+			</column>
+		</row>
+	</dialog>
+</document>
