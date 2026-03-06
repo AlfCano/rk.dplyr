@@ -1,7 +1,4 @@
 # make_dplyr_plugin.R
-# This script programmatically generates an RKWard plugin for dplyr table combinations.
-# To run: source("make_dplyr_plugin.R")
-
 local({
 
   # =========================================================================================
@@ -20,15 +17,16 @@ local({
     ),
     about = list(
       desc = "An RKWard plugin for data table combination and manipulation using the 'dplyr' library.",
-      version = "0.1.3", # Version incremented for UI label improvement
+      version = "0.1.4", # Bumped version to reflect the fix
       url = "https://github.com/AlfCano/rk.dplyr",
       license = "GPL (>= 3)"
     )
   )
 
+  # FIX: Removed 'rkward.min' to prevent R-Universe build failure
   dependencies.info <- rk.XML.dependencies(
     dependencies = list(
-      rkward.min = "0.7.0",
+      # rkward.min = "0.7.0",  <-- THIS CAUSED THE ERROR
       R.min = "3.5.0",
       package = list(name = "dplyr", min = "1.0.0", repository = "CRAN")
     )
@@ -42,7 +40,7 @@ local({
     summary = rk.rkh.summary(text = "Binds two data.frames together either by rows (stacking) or by columns (side-by-side).")
   )
 
-  # --- UI Definition (Bind) - Added labels to varselectors ---
+  # --- UI Definition (Bind) ---
   bind_selector_x <- rk.XML.varselector(label="Select data.frame x", id.name="bind_selector_x")
   bind_slot_x <- rk.XML.varslot("First data.frame (x)", source="bind_selector_x", required=TRUE, id.name="bind_x")
   bind_selector_y <- rk.XML.varselector(label="Select data.frame y", id.name="bind_selector_y")
@@ -84,7 +82,7 @@ local({
   # =========================================================================================
   # Component 2: Mutating Joins
   # =========================================================================================
-  # --- UI Definition (Mutating Joins) - Added labels to varselectors ---
+  # --- UI Definition (Mutating Joins) ---
   mjoin_selector_x <- rk.XML.varselector(label="Select data.frame x", id.name="mjoin_selector_x")
   mjoin_slot_x <- rk.XML.varslot("First data.frame (x)", source="mjoin_selector_x", required=TRUE, id.name="mjoin_x")
   mjoin_selector_y <- rk.XML.varselector(label="Select data.frame y", id.name="mjoin_selector_y")
@@ -138,7 +136,7 @@ local({
   # =========================================================================================
   # Component 3: Filtering Joins
   # =========================================================================================
-  # --- UI Definition (Filtering Joins) - Added labels to varselectors ---
+  # --- UI Definition (Filtering Joins) ---
   fjoin_selector_x <- rk.XML.varselector(label="Select data.frame x", id.name="fjoin_selector_x")
   fjoin_slot_x <- rk.XML.varslot("Filter this data.frame (x)", source="fjoin_selector_x", required=TRUE, id.name="fjoin_x")
   fjoin_selector_y <- rk.XML.varselector(label="Select data.frame y", id.name="fjoin_selector_y")
@@ -190,7 +188,7 @@ local({
   # =========================================================================================
   # Component 4: Set Operations
   # =========================================================================================
-  # --- UI Definition (Set Operations) - Added labels to varselectors ---
+  # --- UI Definition (Set Operations) ---
   setop_selector_x <- rk.XML.varselector(label="Select data.frame x", id.name="setop_selector_x")
   setop_slot_x <- rk.XML.varslot("First data.frame (x)", source="setop_selector_x", required=TRUE, id.name="setop_x")
   setop_selector_y <- rk.XML.varselector(label="Select data.frame y", id.name="setop_selector_y")
@@ -257,5 +255,5 @@ local({
     show = FALSE
   )
 
-  cat("\nPlugin package 'rk.dplyr' with 4 plugins generated under the 'Data -> Combine Data Tables (dplyr)' menu.\n")
+  cat("\nPlugin package 'rk.dplyr' (v0.1.4) generated successfully.\n")
 })

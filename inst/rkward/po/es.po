@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.dplyr 0.1.4\n"
+"Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
+"POT-Creation-Date: 2026-03-06 13:25-0600\n"
+"PO-Revision-Date: 2026-03-06 13:25-0600\n"
+"Last-Translator: Alfonso Cano <alfonso.cano@correo.buap.mx>\n"
+"Language-Team: Spanish <rkward-devel@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# --- Hierarchy ---
+msgid "Combine Data Tables (dplyr)"
+msgstr "Combinar Tablas de Datos (dplyr)"
+
+# --- Main Plugin: Bind ---
+msgid "Combine by Binding (dplyr)"
+msgstr "Combinar por Unión (Binding)"
+
+msgid "Binds two data.frames together either by rows (stacking) or by columns (side-by-side)."
+msgstr "Une dos data.frames ya sea por filas (apilamiento) o por columnas (lado a lado)."
+
+msgid "Select data.frame x"
+msgstr "Seleccionar data.frame x"
+
+msgid "First data.frame (x)"
+msgstr "Primer data.frame (x)"
+
+msgid "Select data.frame y"
+msgstr "Seleccionar data.frame y"
+
+msgid "Second data.frame (y)"
+msgstr "Segundo data.frame (y)"
+
+msgid "Operation"
+msgstr "Operación"
+
+msgid "Bind rows (stack)"
+msgstr "Unir filas (apilar)"
+
+msgid "Bind columns (side-by-side)"
+msgstr "Unir columnas (lado a lado)"
+
+msgid "Binding Options"
+msgstr "Opciones de Unión"
+
+msgid "Save result as"
+msgstr "Guardar resultado como"
+
+msgid "Bind result saved as: "
+msgstr "Resultado de unión guardado como: "
+
+# --- Mutating Joins ---
+msgid "Mutating Joins (dplyr)"
+msgstr "Uniones Mutantes (Joins)"
+
+msgid "Join Type"
+msgstr "Tipo de Unión (Join)"
+
+msgid "Left Join"
+msgstr "Unión Izquierda (Left Join)"
+
+msgid "Right Join"
+msgstr "Unión Derecha (Right Join)"
+
+msgid "Inner Join"
+msgstr "Unión Interna (Inner Join)"
+
+msgid "Full Join"
+msgstr "Unión Completa (Full Join)"
+
+msgid "Join by columns (e.g., c('A'='B'))"
+msgstr "Unir por columnas (ej. c('A'='B'))"
+
+msgid "Join Options"
+msgstr "Opciones de Unión"
+
+msgid "Join result saved as: "
+msgstr "Resultado del Join guardado como: "
+
+# --- Filtering Joins ---
+msgid "Filtering Joins (dplyr)"
+msgstr "Uniones de Filtrado"
+
+msgid "Filter this data.frame (x)"
+msgstr "Filtrar este data.frame (x)"
+
+msgid "Using matches in (y)"
+msgstr "Usando coincidencias en (y)"
+
+msgid "Semi Join (keep matching x)"
+msgstr "Semi Unión (mantener x que coinciden)"
+
+msgid "Anti Join (discard matching x)"
+msgstr "Anti Unión (descartar x que coinciden)"
+
+msgid "Join by columns (e.g., 'ID')"
+msgstr "Unir por columnas (ej. 'ID')"
+
+msgid "Filter result saved as: "
+msgstr "Resultado del filtro guardado como: "
+
+# --- Set Operations ---
+msgid "Set Operations (dplyr)"
+msgstr "Operaciones de Conjuntos (dplyr)"
+
+msgid "Intersect (common rows)"
+msgstr "Intersección (filas comunes)"
+
+msgid "Set Difference (rows in x, not y)"
+msgstr "Diferencia (filas en x, no en y)"
+
+msgid "Union (all unique rows)"
+msgstr "Unión (todas las filas únicas)"
+
+msgid "Set Options"
+msgstr "Opciones de Conjunto"
+
+msgid "Set result saved as: "
+msgstr "Resultado del conjunto guardado como: "

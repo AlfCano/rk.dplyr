@@ -1,10 +1,25 @@
 # `rk.dplyr`: An RKWard Plugin for `dplyr` Table Combinations
 
+![Version](https://img.shields.io/badge/Version-0.1.4-blue.svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![RKWard](https://img.shields.io/badge/Platform-RKWard-green)
+[![R Linter](https://github.com/AlfCano/rk.dplyr/actions/workflows/lintr.yml/badge.svg)](https://github.com/AlfCano/rk.dplyr/actions/workflows/lintr.yml)
+![AI Gemini](https://img.shields.io/badge/AI-Gemini-4285F4?logo=googlegemini&logoColor=white)
 
 This repository contains the source code for `rk.dplyr`, an RKWard plugin package that provides a user-friendly graphical interface for the powerful data combination and manipulation functions in the R package `dplyr`.
 
 This package simplifies common data wrangling tasks by providing clear dialogs for four categories of operations, each requiring two data frames as input.
+
+## 🌍 Internationalization
+
+As of version 0.1.4, this plugin is fully localized. The interface automatically adapts to the language settings of your RKWard installation.
+
+**Supported Languages:**
+*   🇺🇸 **English** (Default)
+*   🇪🇸 **Spanish** (`es`)
+*   🇫🇷 **French** (`fr`)
+*   🇩🇪 **German** (`de`)
+*   🇧🇷 **Portuguese** (Brazil) (`pt_BR`)
 
 ## Features
 
@@ -35,19 +50,26 @@ Treats rows as elements of a set. These operations require that the two data fra
 
 ## Installation
 
-To install this plugin, you need to have RKWard and the `remotes` package installed.
+### With `remotes` (Recommended)
+You can install this plugin directly from the repository using the `remotes` package in R.
 
-1.  Install the `remotes` package if you haven't already:
-    ```R
-    install.packages("remotes")
-    ```
+```R
+local({
+## Preparar
+require(remotes)
+## Computar
+  install_github(
+    repo="AlfCano/rk.dplyr"
+  )
+## Imprimir el resultado
+rk.header ("Resultados de Instalar desde git")
+})
+```
 
-2.  Install the plugin directly from GitHub:
-    ```R
-    remotes::install_github("AlfCano/rk.dplyr")
-    ```
-
-3.  Restart RKWard to ensure the new menu items appear correctly.
+### Manual Installation
+1.  Download this repository as a `.zip` file.
+2.  In RKWard, go to **Settings -> R Packages -> Install package(s) from local zip file(s)** and select the downloaded file.
+3.  Restart RKWard.
 
 ## Usage
 
@@ -68,6 +90,8 @@ Select the desired operation to open its dialog window.
 -   **R:** Version 3.5.0 or greater.
 -   **R Package:** `dplyr` (version 1.0.0 or greater), which will be installed from CRAN if not already present.
 
-## License
+## Author & License
 
-This plugin package is licensed under the GPL (>= 3).
+*   **Author:** Alfonso Cano (<alfonso.cano@correo.buap.mx>)
+*   **Assisted by:** Gemini, a large language model from Google.
+*   **License:** GPL (>= 3)

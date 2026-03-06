@@ -1,0 +1,275 @@
+# Golden Rules of RKWard Plugin Development (Revised & Expanded)
+# Plugin for the cartographr R package (Final Corrected Version with Help Files)
+
+local({
+  # =========================================================================================
+  # Package Definition and Metadata
+  # =========================================================================================
+  require(rkwarddev)
+  rkwarddev.required("0.8-1")
+
+  package_about <- rk.XML.about(
+    name = "rk.cartographr",
+    author = person(
+      given = "Alfonso",
+      family = "Cano Robles",
+      email = "alfonso.cano@correo.buap.mx",
+      role = c("aut", "cre")
+    ),
+    about = list(
+      desc = "An RKWard plugin package for fetching and plotting OpenStreetMap data using the 'cartographr' library.",
+      version = "0.1.2",
+      url = "https://github.com/AlfCano/rk.cartographr",
+      license = "GPL (>= 3)"
+    )
+  )
+
+  # =========================================================================================
+  # --- Reusable UI and JS Helpers ---
+  # =========================================================================================
+
+  labels_tab <- rk.XML.col(
+    rk.XML.input(label="Plot Title", id.name="title_input"),
+    rk.XML.input(label="Subtitle", id.name="subtitle_input"),
+    rk.XML.input(label="X-axis label", id.name="xlab_input"),
+    rk.XML.input(label="Y-axis label", id.name="ylab_input"),
+    rk.XML.input(label="Caption", id.name="caption_input")
+  )
+
+  device_tab <- rk.XML.col(
+    rk.XML.dropdown(label="Device type", id.name="device_type", options=list("PNG"=list(val="PNG", chk=TRUE), "SVG"=list(val="SVG"), "JPG"=list(val="JPG"))),
+    rk.XML.spinbox(label="JPG Quality (0-100)", id.name="jpg_quality", min=0, max=100, initial=75),
+    rk.XML.spinbox(label="Width (px)", id.name="dev_width", min=100, max=4000, initial=720),
+    rk.XML.spinbox(label="Height (px)", id.name="dev_height", min=100, max=4000, initial=720),
+    rk.XML.spinbox(label="Resolution (ppi)", id.name="dev_res", min=50, max=600, initial=125),
+    rk.XML.dropdown(label="Background", id.name="dev_bg", options=list("Transparent"=list(val="transparent", chk=TRUE), "White"=list(val="white")))
+  )
+
+  js_print_graph <- '
+    if(!is_preview){
+      var graph_options = new Array();
+      graph_options.push("device.type=\\"" + getValue("device_type") + "\\"");
+      graph_options.push("width=" + getValue("dev_width"));
+      graph_options.push("height=" + getValue("dev_height"));
+      graph_options.push("pointsize=10.0");
+      graph_options.push("res=" + getValue("dev_res"));
+      graph_options.push("bg=\\"" + getValue("dev_bg") + "\\"");
+      if(getValue("device_type") == "JPG"){
+        graph_options.push("quality=" + getValue("jpg_quality"));
+      }
+      echo("rk.graph.on(" + graph_options.join(", ") + ")\\n");
+    }
+    // The plot object is always hard-coded to \'p\' in the calculate section
+    echo("try(print(p))\\n");
+    if(!is_preview){
+      echo("rk.graph.off()\\n");
+    }
+  '
+
+  # =========================================================================================
+  # Main Plugin: Get Open Street Map Data
+  # =========================================================================================
+
+  url_input <- rk.XML.input("OpenStreetMap URL (e.g., ...#map=12/19.05/-98.27)", id.name="url_input", required=TRUE)
+  x_dist_spin <- rk.XML.spinbox("X Distance (meters)", min=1, initial=5000, id.name="x_dist")
+  y_dist_spin <- rk.XML.spinbox("Y Distance (meters)", min=1, initial=5000, id.name="y_dist")
+  output_size_presets <- list(
+    "A4" = list(val="A4", chk=TRUE), "A0"=list(val="A0"), "A1"=list(val="A1"), "A2"=list(val="A2"),
+    "A3"=list(val="A3"), "A5"=list(val="A5"), "A6"=list(val="A6"),
+    "Small Poster"=list(val="small_poster"), "Medium Poster"=list(val="medium_poster"), "Large Poster"=list(val="large_poster")
+  )
+  size_dropdown <- rk.XML.dropdown("Preset output size", options=output_size_presets, id.name="size_preset")
+  custom_size_input <- rk.XML.input("Custom size (e.g., c(300, 300))", id.name="size_custom")
+  main_save_object <- rk.XML.saveobj("Save sf object as", chk = TRUE, initial = "map", id.name = "main_save_obj")
+
+  main_dialog_content <- rk.XML.dialog(
+    label = "Get Open Street Map Data",
+    child = rk.XML.col(
+        rk.XML.frame(url_input, label="Data Source"),
+        rk.XML.row(
+            rk.XML.frame(x_dist_spin, y_dist_spin, label="Dimensions"),
+            rk.XML.frame(size_dropdown, custom_size_input, label="Output Size")
+        ),
+        main_save_object
+    )
+  )
+
+  js_calc_main <- '
+    var url = getValue("url_input");
+    var x_dist = getValue("x_dist");
+    var y_dist = getValue("y_dist");
+    var size_preset = getValue("size_preset");
+    var size_custom = getValue("size_custom");
+    var code = "require(cartographr)\\n";
+
+    if(size_custom){
+        code += "set_output_size(" + size_custom + ")\\n";
+    } else {
+        code += "set_output_size(size = \\"" + size_preset + "\\")\\n";
+    }
+
+    if(url){
+      var match = url.match(/#map=\\d+\\/([\\d\\.-]+)\\/([\\d\\.-]+)/);
+      if(match && match.length >= 3){
+        var lat = match[1];
+        var lon = match[2];
+        // The object is ALWAYS hard-coded to "map"
+        code += "map <- get_osmdata(";
+        code += "\\n  lat = " + lat + ",";
+        code += "\\n  lon = " + lon + ",";
+        code += "\\n  x_distance = " + x_dist + ",";
+        code += "\\n  y_distance = " + y_dist + ",";
+        code += "\\n  quiet = FALSE";
+        code += "\\n)\\n";
+      } else {
+        code += "rk.stop(\\"URL could not be parsed. Please use the format ...#map=ZOOM/LAT/LON\\")\\n";
+      }
+    }
+    echo(code);
+  '
+
+  js_print_main <- '
+    var save_name = getValue("main_save_obj.objectname");
+    var r_commands = "rk.header(\\"sf object \'" + save_name + "\' created successfully.\\", level=3)";
+    r_commands += ";\\nprint(summary(map))\\n";
+    echo(r_commands);
+  '
+
+  # --- CORRECTED: Help File for the Main Plugin (Using Named Arguments) ---
+  main_plugin_help <- rk.rkh.doc(
+    title = rk.rkh.title("Get Open Street Map Data"),
+    summary = rk.rkh.summary("Fetches map data from OpenStreetMap based on a specific URL and dimensions, creating an 'sf' object for further analysis and plotting."),
+    usage = rk.rkh.usage("Provide a URL from OpenStreetMap that includes the latitude and longitude in the fragment (e.g., ...#map=12/19.05/-98.27). Specify the desired dimensions in meters and select an output size preset. The plugin will download the corresponding map data and store it in an R object of class 'sf'."),
+    sections = list(
+      rk.rkh.section("Options",
+        rk.rkh.item("OpenStreetMap URL", "The full URL from an OpenStreetMap view. The plugin will automatically parse the latitude and longitude from the part of the URL that looks like '#map=ZOOM/LAT/LON'."),
+        rk.rkh.item("X/Y Distance (meters)", "The width and height of the map area to retrieve, centered on the coordinates from the URL."),
+        rk.rkh.item("Preset output size", "Defines the aspect ratio and intended print size of the map data. 'Custom size' allows you to provide a specific numeric vector like 'c(width, height)'."),
+        rk.rkh.item("Save sf object as", "Specify the name for the resulting 'sf' data object that will be created in your R environment.")
+      ),
+      rk.rkh.section("Requirements",
+        "This plugin requires the 'cartographr' R package to be installed."
+      )
+    ),
+    authors = rk.rkh.authors("Alfonso Cano Robles")
+  )
+
+  # =========================================================================================
+  # Component: Plot Cartographr Map
+  # =========================================================================================
+
+  plot_selector <- rk.XML.varselector(id.name = "plot_selector")
+  plot_sf_slot <- rk.XML.varslot("Select the sf object", source = "plot_selector", required = TRUE, id.name = "plot_sf_object")
+  palettes <- c("alphabet", "arctic", "autumn", "bw", "desert", "evening", "gray", "iberia",
+                "imhof", "lines", "metropolitan", "midnight", "minimal", "swiss", "tropical")
+  palette_opts <- lapply(palettes, function(p) list(val = p))
+  names(palette_opts) <- palettes
+  palette_opts[[1]]$chk <- TRUE
+  plot_palette_dropdown <- rk.XML.dropdown("Color Palette", options = palette_opts, id.name = "plot_palette")
+  plot_save_object <- rk.XML.saveobj("Save plot object to", chk=TRUE, initial="cartographr.plot", id.name="plot_save_obj")
+
+  plot_dialog <- rk.XML.dialog(
+    label = "Plot Cartographr Map",
+    child = rk.XML.row(
+      plot_selector,
+      rk.XML.col(
+        rk.XML.tabbook(tabs=list(
+          "Data & Style" = rk.XML.col(plot_sf_slot, plot_palette_dropdown),
+          "Labels" = labels_tab,
+          "Output Device" = device_tab
+        )),
+        plot_save_object,
+        rk.XML.preview(id.name="plot_preview")
+      )
+    )
+  )
+
+  js_calc_plot <- '
+    var sf_object = getValue("plot_sf_object");
+    if(!sf_object) return;
+
+    var palette = getValue("plot_palette");
+    var save_plot = getValue("plot_save_obj.active");
+    var save_plot_name = getValue("plot_save_obj.objectname");
+
+    var code = "# Generating the map\\n";
+    code += "p <- cartographr::plot_map(osm = " + sf_object + ", palette = \\"" + palette + "\\")\\n";
+
+    var labs_list = new Array();
+    if(getValue("title_input")) { labs_list.push("title = " + JSON.stringify(getValue("title_input"))); }
+    if(getValue("subtitle_input")) { labs_list.push("subtitle = " + JSON.stringify(getValue("subtitle_input"))); }
+    if(getValue("xlab_input")) { labs_list.push("x = " + JSON.stringify(getValue("xlab_input"))); }
+    if(getValue("ylab_input")) { labs_list.push("y = " + JSON.stringify(getValue("ylab_input"))); }
+    if(getValue("caption_input")) { labs_list.push("caption = " + JSON.stringify(getValue("caption_input"))); }
+    if(labs_list.length > 0) {
+      code += "p <- p + ggplot2::labs(" + labs_list.join(", ") + ")\\n";
+    }
+
+    code += "cartographr.plot <- p\\n";
+    echo(code);
+  '
+
+  # --- CORRECTED: Help File for the Plot Component (Using Named Arguments) ---
+  plot_component_help <- rk.rkh.doc(
+    title = rk.rkh.title("Plot Cartographr Map"),
+    summary = rk.rkh.summary("Generates a map plot from an 'sf' object created by the 'Get Open Street Map Data' plugin."),
+    usage = rk.rkh.usage("Select an 'sf' object from your workspace. Choose a color palette and customize labels and output device settings as needed. The plugin uses 'cartographr::plot_map' to render the map."),
+    sections = list(
+      rk.rkh.section("Tabs",
+        rk.rkh.item("Data & Style", "Select the source 'sf' object and choose a visual color theme for the map."),
+        rk.rkh.item("Labels", "Set the main title, subtitle, axis labels, and caption for the plot."),
+        rk.rkh.item("Output Device", "Configure the settings for exporting the plot to a file, including image format, dimensions, and resolution.")
+      ),
+      rk.rkh.section("Requirements",
+        "This plugin requires the 'cartographr' and 'ggplot2' R packages to be installed."
+      )
+    ),
+    authors = rk.rkh.authors("Alfonso Cano Robles")
+  )
+
+  plot_component <- rk.plugin.component(
+      "Plot Cartographr Map",
+      xml = list(dialog = plot_dialog),
+      js = list(
+          require=c("cartographr", "ggplot2"),
+          calculate = js_calc_plot,
+          printout = js_print_graph,
+          preview = TRUE
+      ),
+      rkh = list(help = plot_component_help),
+      hierarchy = list("plots", "Open Street Map")
+  )
+
+  # =========================================================================================
+  # Final Plugin Skeleton Call
+  # =========================================================================================
+  rk.plugin.skeleton(
+    about = package_about,
+    path = ".",
+    xml = list(dialog = main_dialog_content),
+    js = list(
+      require = "cartographr",
+      calculate = js_calc_main,
+      printout = js_print_main
+    ),
+    rkh = list(help = main_plugin_help),
+    components = list(plot_component),
+    pluginmap = list(
+        name = "Get Open Street Map Data",
+        hierarchy = list("plots", "Open Street Map")
+    ),
+    create = c("pmap", "xml", "js", "desc", "rkh"),
+    load = TRUE,
+    overwrite = TRUE,
+    show = FALSE
+  )
+
+  cat(
+    "Plugin files generated successfully in directory '", normalizePath("."), "'.\n",
+    "To complete the installation, please run the following commands in your R console:\n",
+    "  rk.updatePluginMessages(path='.')\n",
+    "  devtools::install('.')\n",
+    sep=""
+  )
+
+})

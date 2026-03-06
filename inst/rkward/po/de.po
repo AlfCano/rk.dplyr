@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.dplyr 0.1.4\n"
+"Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
+"POT-Creation-Date: 2026-03-06 13:25-0600\n"
+"PO-Revision-Date: 2026-03-06 13:25-0600\n"
+"Last-Translator: Alfonso Cano <alfonso.cano@correo.buap.mx>\n"
+"Language-Team: German <rkward-devel@kde.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Combine Data Tables (dplyr)"
+msgstr "Datentabellen kombinieren (dplyr)"
+
+msgid "Combine by Binding (dplyr)"
+msgstr "Kombinieren durch Binden"
+
+msgid "Binds two data.frames together either by rows (stacking) or by columns (side-by-side)."
+msgstr "Verbindet zwei data.frames entweder zeilenweise (stapeln) oder spaltenweise (nebeneinander)."
+
+msgid "Select data.frame x"
+msgstr "data.frame x auswählen"
+
+msgid "First data.frame (x)"
+msgstr "Erster data.frame (x)"
+
+msgid "Select data.frame y"
+msgstr "data.frame y auswählen"
+
+msgid "Second data.frame (y)"
+msgstr "Zweiter data.frame (y)"
+
+msgid "Operation"
+msgstr "Operation"
+
+msgid "Bind rows (stack)"
+msgstr "Zeilen binden (stapeln)"
+
+msgid "Bind columns (side-by-side)"
+msgstr "Spalten binden (nebeneinander)"
+
+msgid "Binding Options"
+msgstr "Bindungsoptionen"
+
+msgid "Save result as"
+msgstr "Ergebnis speichern als"
+
+msgid "Bind result saved as: "
+msgstr "Bindungsergebnis gespeichert als: "
+
+msgid "Mutating Joins (dplyr)"
+msgstr "Mutierende Verknüpfungen (Joins)"
+
+msgid "Join Type"
+msgstr "Verknüpfungstyp"
+
+msgid "Left Join"
+msgstr "Linke Verknüpfung (Left Join)"
+
+msgid "Right Join"
+msgstr "Rechte Verknüpfung (Right Join)"
+
+msgid "Inner Join"
+msgstr "Innere Verknüpfung (Inner Join)"
+
+msgid "Full Join"
+msgstr "Vollständige Verknüpfung (Full Join)"
+
+msgid "Join by columns (e.g., c('A'='B'))"
+msgstr "Verknüpfen nach Spalten (z. B. c('A'='B'))"
+
+msgid "Join Options"
+msgstr "Verknüpfungsoptionen"
+
+msgid "Join result saved as: "
+msgstr "Join-Ergebnis gespeichert als: "
+
+msgid "Filtering Joins (dplyr)"
+msgstr "Filternde Verknüpfungen"
+
+msgid "Filter this data.frame (x)"
+msgstr "Diesen data.frame filtern (x)"
+
+msgid "Using matches in (y)"
+msgstr "Mit Übereinstimmungen in (y)"
+
+msgid "Semi Join (keep matching x)"
+msgstr "Semi Join (behalte passende x)"
+
+msgid "Anti Join (discard matching x)"
+msgstr "Anti Join (verwerfe passende x)"
+
+msgid "Join by columns (e.g., 'ID')"
+msgstr "Verknüpfen nach Spalten (z. B. 'ID')"
+
+msgid "Filter result saved as: "
+msgstr "Filterergebnis gespeichert als: "
+
+msgid "Set Operations (dplyr)"
+msgstr "Mengenoperationen (dplyr)"
+
+msgid "Intersect (common rows)"
+msgstr "Schnittmenge (gemeinsame Zeilen)"
+
+msgid "Set Difference (rows in x, not y)"
+msgstr "Differenzmenge (Zeilen in x, nicht y)"
+
+msgid "Union (all unique rows)"
+msgstr "Vereinigung (alle eindeutigen Zeilen)"
+
+msgid "Set Options"
+msgstr "Mengenoptionen"
+
+msgid "Set result saved as: "
+msgstr "Mengenergebnis gespeichert als: "

@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.dplyr 0.1.4\n"
+"Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
+"POT-Creation-Date: 2026-03-06 13:25-0600\n"
+"PO-Revision-Date: 2026-03-06 13:25-0600\n"
+"Last-Translator: Alfonso Cano <alfonso.cano@correo.buap.mx>\n"
+"Language-Team: French <rkward-devel@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Combine Data Tables (dplyr)"
+msgstr "Combiner Tableaux de Données (dplyr)"
+
+msgid "Combine by Binding (dplyr)"
+msgstr "Combiner par Liaison (Binding)"
+
+msgid "Binds two data.frames together either by rows (stacking) or by columns (side-by-side)."
+msgstr "Lie deux data.frames soit par lignes (empilement), soit par colonnes (côte à côte)."
+
+msgid "Select data.frame x"
+msgstr "Sélectionner data.frame x"
+
+msgid "First data.frame (x)"
+msgstr "Premier data.frame (x)"
+
+msgid "Select data.frame y"
+msgstr "Sélectionner data.frame y"
+
+msgid "Second data.frame (y)"
+msgstr "Second data.frame (y)"
+
+msgid "Operation"
+msgstr "Opération"
+
+msgid "Bind rows (stack)"
+msgstr "Lier lignes (empiler)"
+
+msgid "Bind columns (side-by-side)"
+msgstr "Lier colonnes (côte à côte)"
+
+msgid "Binding Options"
+msgstr "Options de Liaison"
+
+msgid "Save result as"
+msgstr "Enregistrer le résultat sous"
+
+msgid "Bind result saved as: "
+msgstr "Résultat de liaison enregistré sous : "
+
+msgid "Mutating Joins (dplyr)"
+msgstr "Jointures Mutantes"
+
+msgid "Join Type"
+msgstr "Type de Jointure"
+
+msgid "Left Join"
+msgstr "Jointure Gauche (Left Join)"
+
+msgid "Right Join"
+msgstr "Jointure Droite (Right Join)"
+
+msgid "Inner Join"
+msgstr "Jointure Interne (Inner Join)"
+
+msgid "Full Join"
+msgstr "Jointure Complète (Full Join)"
+
+msgid "Join by columns (e.g., c('A'='B'))"
+msgstr "Joindre par colonnes (ex. c('A'='B'))"
+
+msgid "Join Options"
+msgstr "Options de Jointure"
+
+msgid "Join result saved as: "
+msgstr "Résultat de jointure enregistré sous : "
+
+msgid "Filtering Joins (dplyr)"
+msgstr "Jointures Filtrantes"
+
+msgid "Filter this data.frame (x)"
+msgstr "Filtrer ce data.frame (x)"
+
+msgid "Using matches in (y)"
+msgstr "En utilisant correspondances dans (y)"
+
+msgid "Semi Join (keep matching x)"
+msgstr "Semi-Jointure (garder x correspondants)"
+
+msgid "Anti Join (discard matching x)"
+msgstr "Anti-Jointure (rejeter x correspondants)"
+
+msgid "Join by columns (e.g., 'ID')"
+msgstr "Joindre par colonnes (ex. 'ID')"
+
+msgid "Filter result saved as: "
+msgstr "Résultat du filtre enregistré sous : "
+
+msgid "Set Operations (dplyr)"
+msgstr "Opérations Ensemblistes (dplyr)"
+
+msgid "Intersect (common rows)"
+msgstr "Intersection (lignes communes)"
+
+msgid "Set Difference (rows in x, not y)"
+msgstr "Différence (lignes dans x, pas y)"
+
+msgid "Union (all unique rows)"
+msgstr "Union (toutes lignes uniques)"
+
+msgid "Set Options"
+msgstr "Options d'Ensemble"
+
+msgid "Set result saved as: "
+msgstr "Résultat d'ensemble enregistré sous : "
